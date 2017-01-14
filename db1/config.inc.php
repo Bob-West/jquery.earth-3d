@@ -3,7 +3,7 @@
 
 
 //Includes:
-//require_once('functions.inc.php');
+require_once('functions.inc.php');
 
 
 define("DB_HOST","mysql5");

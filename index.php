@@ -1,4 +1,18 @@
-<!DOCTYPE HTML>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Robin
+ * Date: 12.01.17
+ * Time: 14:57
+ */
+
+require_once('db1/config.inc.php');
+require_once('db1/functions.inc.php');
+
+$tt = new test();
+
+?>
+
 <html>
   <head>
     <script src="js/api.js"></script>
@@ -6,15 +20,31 @@
       function initialize() {
         var earth = new WE.map('earth_div');
         WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
+       
+	    <?php foreach($tt -> getRoutes() as $r){
+		  $src_x = $r['src_x'];
+          $src_x2 = $src_x + 0.000001;
 
-		var polygonA = WE.polygon([[0, 0],[48.110278, 16.569],[51.209348,3.224700],[51.209348, 3.224701]],{
+          $src_y = $r['src_y'];
+          $src_y2 = $src_y + 0.000001;
+
+          $dst_x = $r['dst_x'];
+          $dst_x2 = $dst_x + 0.000001;
+
+          $dst_y = $r['dst_y'];
+          $dst_y2 = $dst_y + 0.000001;
+			?>
+
+	   	 var polygonA = WE.polygon([[<?php echo $src_x?>,<?php echo $src_y?>],[<?php echo $src_x2?>,<?php echo $src_y2?>],[<?php echo $dst_x?>,<?php echo $dst_y?>],[<?php echo $dst_x2?>,<?php echo $dst_y2?>]],
+            {
           color: '#ff0',
           opacity: 1,
           fillColor: '#f00',
           fillOpacity: 0.1,
           editable: false,
-		weight: 2});
+        weight: 2});
         polygonA.addTo(earth);
+		<?php }?>
 		
         /*var polygonA = WE.polygon([[49.5608, 5.811], [49.986, 5.723],
           [50.190, 6.086], [49.781, 6.536], [49.468, 6.372], [49.560, 5.811]]
@@ -44,7 +74,17 @@
       </style>
       <title>WebGL Earth API: Polygon</title>
     </head>
-    <body onload="initialize()">
-      <div id="earth_div"></div>
+    <body onLoad="initialize()">
+      <div id="earth_div">
+        <select id="airlines_namen">
+
+          <?php foreach($tt -> getAirlines() as $r):?>
+
+              <option><?=$r['name']?></option>
+
+          <?php endforeach;?>
+
+        </select>
+      </div>
   </body>
 </html>
