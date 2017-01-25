@@ -31,13 +31,24 @@ class test
         return $airlines = $airlines -> fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function getRoutes(){
+    function getAirlinesByCity($city){
+        $query_prep = "SELECT distinct al.name FROM routes AS r 
+        JOIN airlines AS al ON r.alid = al.alid 
+        JOIN airports AS ap_src ON r.src_apid = ap_src.apid
+        JOIN airports AS ap_dst ON r.dst_apid = ap_dst.apid 
+        WHERE al.active = 'Y' AND (ap_src.city = '$city' OR ap_dst.city = '$city') ";
+        //return $query_prep;
+        $airlines = $this -> db -> query($query_prep);
+        return $airlines = $airlines -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function getRoutes($city){
 
         $routes = $this -> db -> query("SELECT r.airline, r.alid, ap_src.city as src_city, ap_src.y as src_x, ap_src.x as src_y, ap_dst.city as dst_city, ap_dst.y as dst_x, ap_dst.x as dst_y, al.name FROM routes AS r
         JOIN airlines AS al ON r.alid = al.alid
         JOIN airports AS ap_src ON r.src_apid = ap_src.apid
         JOIN airports AS ap_dst ON r.dst_apid = ap_dst.apid
-        WHERE al.active = 'Y' and (ap_src.city = 'Vienna' Or ap_dst.city = 'Vienna')");
+        WHERE al.active = 'Y' and (ap_src.city = '$city' Or ap_dst.city = '$city')");
         return $routes = $routes -> fetchAll(PDO::FETCH_ASSOC);
     }
 }
