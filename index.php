@@ -61,6 +61,7 @@ $tt = new test();
 <body>
 <div id="selection_boxes">
     <select name="city_names" id="city_names">
+        <option>..StÃ¤dte...</option>
         <option value="Vienna">Wien</option>
         <option value="Berlin">Berlin</option>
         <!--option value="Roma">Rom</option-->
@@ -75,11 +76,17 @@ $tt = new test();
         <option value="Dubai">Dubai</option>
     </select>
 
-    <select id="airlines_namen">
-        <?php foreach ($tt->getAirlines() as $r): ?>
-            <option><?= $r['name'] ?></option>
+    <select id="airlines_namen" style="background-color:#<?= $tt -> stringToColorCode($tt->getFirstAirline())?>">
+
+        <?php foreach ($tt->getAirlinesByCity('Vienna') as $r): ?>
+            <option style="background-color:#<?= $tt -> stringToColorCode($r['name'])?>">
+
+                <?= $r['name'] ?></option>
+
         <?php endforeach; ?>
     </select>
+
+
 </div>
 <div id="earth_div" style="margin-top:30px;">
 </div>
