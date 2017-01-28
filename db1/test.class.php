@@ -24,6 +24,14 @@ class test
         $result = $this -> db -> query("SELECT * from airlines");
         return $result = $result -> fetchAll(PDO::FETCH_ASSOC);
     }
+    function getFirstAirline(){
+
+        $airline = $this -> db -> query("SELECT distinct al.name FROM routes AS r JOIN airlines AS al ON r.alid = al.alid WHERE al.active = 'Y' LIMIT 1");
+
+        return $airline = $airline -> fetchAll(PDO::FETCH_ASSOC);
+
+
+    }
 
     function getAirlines(){
 
@@ -51,4 +59,17 @@ class test
         WHERE al.active = 'Y' and (ap_src.city = '$city' Or ap_dst.city = '$city')");
         return $routes = $routes -> fetchAll(PDO::FETCH_ASSOC);
     }
+    function stringToColorCode($str){
+
+        $code = dechex(crc32($str));
+        $code = substr($code,0,6);
+        return $code;
+    }
+
+    function getAirports($city){
+        $airports = $this -> db -> query("SELECT x, y FROM airports WHERE city = '$city'");
+        return $airports = $airports -> fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }
