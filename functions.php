@@ -34,14 +34,7 @@ if(isset($_POST['city'])){
         
         polygonA.addTo(earth);";
     }
-
-    foreach($tt -> getAirports($_POST['city']) as $ap) {
-
-        $ap_x = $ap['x'];
-        $ap_y = $ap['y'];
-
-        echo "earth.setView([$ap_y, $ap_x], 5);";
-    }
+    echo"earth.setView([48, 6], 5);";
 }
 
 
