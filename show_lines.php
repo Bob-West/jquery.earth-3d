@@ -13,10 +13,11 @@ if(isset($_POST['city'])){
 
     $tt = new test();
     //echo $tt -> getAirlinesByCity('Berlin');
+
     foreach($tt -> getAirlinesByCity($_POST['city']) as $r):
 
-        echo "<option style='background-color:".$tt -> stringToColorCode($r['name'])."'>" . $r['name'] . "</option>";
-        //echo 'Test';
+        echo "<p id='p_airlines' style='background-color:".$tt -> stringToColorCode($r['name'])."'>" . $r['name'] . "</p>";
+        //echo $r['name'];
 
     endforeach;
 

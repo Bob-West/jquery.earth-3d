@@ -44,7 +44,7 @@ class test
         JOIN airlines AS al ON r.alid = al.alid 
         JOIN airports AS ap_src ON r.src_apid = ap_src.apid
         JOIN airports AS ap_dst ON r.dst_apid = ap_dst.apid 
-        WHERE al.active = 'Y' AND (ap_src.city = '$city' OR ap_dst.city = '$city') ";
+        WHERE al.active = 'Y' AND (ap_src.city = '$city' OR ap_dst.city = '$city') AND al.name != 'Avianca - Aerovias Nacionales de Colombia'";
         //return $query_prep;
         $airlines = $this -> db -> query($query_prep);
         return $airlines = $airlines -> fetchAll(PDO::FETCH_ASSOC);
@@ -59,11 +59,25 @@ class test
         WHERE al.active = 'Y' and (ap_src.city = '$city' Or ap_dst.city = '$city')");
         return $routes = $routes -> fetchAll(PDO::FETCH_ASSOC);
     }
+    function getAirlineRoutes($city,$airline){
+
+        $a_routes = $this -> db -> query("SELECT r.airline, r.alid, ap_src.city as src_city, ap_src.y as src_x, ap_src.x as src_y, ap_dst.city as dst_city, ap_dst.y as dst_x, ap_dst.x as dst_y, al.name FROM routes AS r
+        JOIN airlines AS al ON r.alid = al.alid
+        JOIN airports AS ap_src ON r.src_apid = ap_src.apid
+        JOIN airports AS ap_dst ON r.dst_apid = ap_dst.apid
+        WHERE al.active = 'Y' and (ap_src.city = '$city' Or ap_dst.city = '$city') AND al.name='$airline' ");
+        return $a_routes = $a_routes -> fetchAll(PDO::FETCH_ASSOC);
+    }
     function stringToColorCode($str){
 
         $code = dechex(crc32($str));
         $code = substr($code,0,6);
-        return $code;
+        if($str == 'Austrian Airlines'){
+            $code = "2a0368";
+        }
+
+        return "#".$code;
+
     }
 
     function getAirports($city){
