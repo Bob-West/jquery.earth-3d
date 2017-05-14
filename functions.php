@@ -2,12 +2,12 @@
 require_once('db1/config.inc.php');
 require_once('db1/functions.inc.php');
 
-$tt = new test();
+ $tt = new test();
 
-
+ 
 if(isset($_POST['city'])){
-
-
+   
+   
     echo "var earth = new WE.map('earth_div');
     WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);";
 
@@ -43,11 +43,11 @@ if(isset($_POST['city'])){
         $ap_y = $ap['y'];
 
         echo "earth.setView([$ap_y, $ap_x], 3);";
-    }
+	}
 }
 if(isset($_POST['name'])){
 
-
+   
     echo "var earth = new WE.map('earth_div');
     WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);";
 
@@ -76,13 +76,13 @@ if(isset($_POST['name'])){
         
         polygonA.addTo(earth);";
     }
-    foreach($tt -> getAirports($_POST['selected_city']) as $ap) {
+	 foreach($tt -> getAirports($_POST['selected_city']) as $ap) {
 
         $ap_x = $ap['x'];
         $ap_y = $ap['y'];
 
         echo "earth.setView([$ap_y, $ap_x], 3);";
-    }
+	}
 
 }
 

@@ -24,11 +24,12 @@ $tt = new test();
     </header>
     <body>
 
-    <?php foreach($tt -> getThemen() as $r):?>
-
-            <option><?=$r['name']?></option>
-
-    <?php endforeach;?>
+    <?php foreach ($tt->getAirlinesByCity('Vienna') as $r): ?>
+           <p style="background-color:<?php echo $tt -> stringToColorCode($r['name'])?>">
+	
+                <?= $r['name'] ?>
+</p>
+        <?php endforeach; ?>
 
     </body>
 </html>

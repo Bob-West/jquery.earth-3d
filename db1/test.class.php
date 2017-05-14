@@ -59,7 +59,7 @@ class test
         WHERE al.active = 'Y' and (ap_src.city = '$city' Or ap_dst.city = '$city')");
         return $routes = $routes -> fetchAll(PDO::FETCH_ASSOC);
     }
-    function getAirlineRoutes($city,$airline){
+	 function getAirlineRoutes($city,$airline){
 
         $a_routes = $this -> db -> query("SELECT r.airline, r.alid, ap_src.city as src_city, ap_src.y as src_x, ap_src.x as src_y, ap_dst.city as dst_city, ap_dst.y as dst_x, ap_dst.x as dst_y, al.name FROM routes AS r
         JOIN airlines AS al ON r.alid = al.alid
@@ -72,12 +72,12 @@ class test
 
         $code = dechex(crc32($str));
         $code = substr($code,0,6);
-        if($str == 'Austrian Airlines'){
-            $code = "2a0368";
-        }
-
-        return "#".$code;
-
+		if($str == 'Austrian Airlines'){
+			 $code = "2a0368";
+		}
+		
+			return "#".$code;
+		
     }
 
     function getAirports($city){
